@@ -13,7 +13,7 @@ Abris el proyecto localizado en el directorio que dice ``pwd`` en PyCharm y hace
 Una vez terminado
 ```shell
 git add .
-git commit -m '<Tu nombre>'
+git commit -m "<Cambio hecho> - <Tu nombre>"
 git push 
 ```
 
