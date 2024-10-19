@@ -3,6 +3,8 @@ from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options as FirefoxOptions 
 # from selenium.webdriver.chrome.options import Options as ChromeOptions 
 
+from config import PROXY_URL
+
 Driver = Firefox
 Options = FirefoxOptions
 
@@ -14,6 +16,7 @@ def create_webdriver_options(
     if is_headless:
         options.add_argument("--headless")
 
+    options.add_argument(f"--proxy-server={PROXY_URL}")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     return options
