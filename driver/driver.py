@@ -1,14 +1,16 @@
 from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.options import Options
-
+# from selenium.webdriver import Chrome
+from selenium.webdriver.firefox.options import Options as FirefoxOptions 
+# from selenium.webdriver.chrome.options import Options as ChromeOptions 
 
 Driver = Firefox
+Options = FirefoxOptions
+
 
 def create_webdriver_options(
         is_headless=True
 ) -> Options:
     options = Options()
-    options.headless = is_headless
     if is_headless:
         options.add_argument("--headless")
 
@@ -18,10 +20,10 @@ def create_webdriver_options(
 
 
 def create_webdriver(
-        options: Options = None,
-) -> Firefox:
+        options: Options | None = None,
+) -> Driver:
     if options is None:
         options = create_webdriver_options()
-    return Firefox(options=options)
+    return Driver(options=options)
 
 
