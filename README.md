@@ -8,7 +8,7 @@ git clone https://github.com/Makariy/PCD1.git
 cd PCD1
 pwd
 ```
-Abris el proyecto localizado en el directorio que dice ``pwd`` en PyCharm y haceis lo vuestro
+Abris el proyecto localizado en el directorio que dice `pwd` en PyCharm y haceis lo vuestro
 
 Una vez terminado
 ```shell
