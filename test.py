@@ -1,6 +1,8 @@
 import time
 from driver import create_webdriver, create_webdriver_options
+from driver.interactor import Interactor
 from driver.paginator import Paginator
+from driver import Driver
 
 
 def main():
@@ -8,7 +10,6 @@ def main():
         options=create_webdriver_options(is_headless=False)
     )
     ...
-
 
 if __name__ == "__main__":
     main()

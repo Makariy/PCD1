@@ -4,6 +4,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from driver import Driver
 from models.graphics import GraphicsCard
 
+url = "https://www.pccomponentes.com/tarjetas-graficas/mas-relevantes"
 
 class PageParser:
     def __init__(self, driver: Driver):
