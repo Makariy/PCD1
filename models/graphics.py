@@ -13,6 +13,8 @@ class GraphicsCard:
     user_score: float  # From 0 to 5
     user_ratings_count: int  # Ex. 241
 
+    refurbished: bool  # True if the product is refurbished
+
     # Si se considera que necesitara mas datos, anadimos mas atributos
 
 
@@ -21,3 +23,5 @@ class GraphicsCardsWithBrand:
     brand: str  # Ex. MSI, ASUS
     graphics_cards: list[GraphicsCard]
 
+    def __str__(self):
+        return self.brand
