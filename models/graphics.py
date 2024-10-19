@@ -21,3 +21,5 @@ class GraphicsCardsWithBrand:
     brand: str  # Ex. MSI, ASUS
     graphics_cards: list[GraphicsCard]
 
+    def __str__(self):
+        return self.brand
