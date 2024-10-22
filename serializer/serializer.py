@@ -13,9 +13,11 @@ class Serializer:
         """
         Hace la exportacion de las tarjetas graficas a una archivo.
         El nombre del archivo tiene que ser f"{graphics_cards_with_brand.brand}.csv"
-        y localizado en el directorio self._base_path
+        y localizado en el directorio self._base_path.
+
+        ***Modifica los campos***
         """
-        for card in graphics_cards_with_brand:
+        for card in graphics_cards_with_brand.graphics_cards:
             with open(f"{self._base_path}/{graphics_cards_with_brand.brand}.csv", "w") as file:
                 writer = csv.writer(file)
                 writer.writerow(["name", "parent_brand", "price", "memory", "memory_type", "user_score", "user_ratings_count", "refurbished"])
