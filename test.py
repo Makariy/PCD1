@@ -9,16 +9,18 @@ def main():
     driver = create_webdriver(
         options=create_webdriver_options(is_headless=False)
     )
-    driver.get("https://www.pccomponentes.com/tarjetas-graficas/asus")
+    driver.get("https://pcpartpicker.com/products/video-card/")
 
-    paginator = Paginator(driver)
     time.sleep(2)
-    paginator.accept_cookies()
-    for i in range(10):
+    paginator = Paginator(driver)
+    time.sleep(3)
+    # paginator.accept_cookies()
+    for i in range(3):
         print(f"{paginator.has_next_page()=}")
-        time.sleep(1)
-        paginator.navigate_to_next_page()
-        time.sleep(1)
+        time.sleep(2)
+        # paginator.navigate_to_next_page()
+
+    time.sleep(100)
 
 
 if __name__ == "__main__":

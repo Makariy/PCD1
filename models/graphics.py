@@ -7,14 +7,18 @@ class GraphicsCard:
     parent_brand: str  # Ex. NVIDIA, AMD, Intel
 
     price: float  # In Euro
+
     memory: float  # In MB
-    memory_type: str  # Ex. GDDR6/GDDR5
+
+    core_clock: float  # In MHz
+    core_boost_clock: float  # In MHz
+
+    length: int  # In mm
 
     user_score: float  # From 0 to 5
     user_ratings_count: int  # Ex. 241
 
-    refurbished: bool  # True if the product is refurbished
-
+    chipset: str  # Ex. Radeon RX7900 XTX
     # Si se considera que necesitara mas datos, anadimos mas atributos
 
 

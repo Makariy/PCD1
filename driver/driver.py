@@ -1,12 +1,11 @@
-from selenium.webdriver import Firefox
-# from selenium.webdriver import Chrome
-from selenium.webdriver.firefox.options import Options as FirefoxOptions 
-# from selenium.webdriver.chrome.options import Options as ChromeOptions 
+# from selenium.webdriver import Firefox
+from selenium.webdriver import Chrome, ChromeOptions
+# from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.chrome.service import Service
 
-from config import PROXY_URL
 
-Driver = Firefox
-Options = FirefoxOptions
+Driver = Chrome
+Options = ChromeOptions
 
 
 def create_webdriver_options(
@@ -16,9 +15,9 @@ def create_webdriver_options(
     if is_headless:
         options.add_argument("--headless")
 
-    options.add_argument(f"--proxy-server={PROXY_URL}")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument('--disable-blink-features=AutomationControlled')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     return options
 
 
