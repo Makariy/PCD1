@@ -1,5 +1,5 @@
 import csv
-from models.graphics import GraphicsCardsWithBrand
+from models.graphics import GraphicsCardsWithBrand, GraphicsCard
 
 
 class Serializer:
@@ -9,18 +9,14 @@ class Serializer:
     ):
         self._base_path = base_path
 
-    def serialize(self, graphics_cards_with_brand: GraphicsCardsWithBrand):
-        """
-        Hace la exportacion de las tarjetas graficas a una archivo.
-        El nombre del archivo tiene que ser f"{graphics_cards_with_brand.brand}.csv"
-        y localizado en el directorio self._base_path.
+    def _get_graphics_fields_names(self) -> list[str]:
+        return list(GraphicsCard.__annotations__.keys())
 
-        ***Modifica los campos***
-        """
-        for card in graphics_cards_with_brand.graphics_cards:
-            with open(f"{self._base_path}/{graphics_cards_with_brand.brand}.csv", "w") as file:
-                writer = csv.writer(file)
-                writer.writerow(["name", "parent_brand", "price", "memory", "memory_type", "user_score", "user_ratings_count", "refurbished"])
-                for card in graphics_cards_with_brand.graphics_cards:
-                    writer.writerow([card.name, card.parent_brand, card.price, card.memory, card.memory_type,
-                                    card.user_score, card.user_ratings_count, card.refurbished])
+    def serialize(self, graphics_cards_with_brand: GraphicsCardsWithBrand):
+        fields_names = self._get_graphics_fields_names()
+        with open(f"{self._base_path}/{graphics_cards_with_brand.brand}.csv", "w") as file:
+            writer = csv.writer(file)
+            writer.writerow(fields_names)
+            for card in graphics_cards_with_brand.graphics_cards:
+                row = [getattr(card, field_name) for field_name in fields_names]
+                writer.writerow(row)
