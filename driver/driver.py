@@ -3,6 +3,7 @@ from selenium.webdriver import Chrome, ChromeOptions
 # from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.chrome.service import Service
 
+from config import PROXY_URL
 
 Driver = Chrome
 Options = ChromeOptions
@@ -15,6 +16,7 @@ def create_webdriver_options(
     if is_headless:
         options.add_argument("--headless")
 
+    options.add_argument(f"--proxy-url={PROXY_URL}")
     options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
@@ -26,6 +28,10 @@ def create_webdriver(
 ) -> Driver:
     if options is None:
         options = create_webdriver_options()
-    return Driver(options=options)
+    driver = Driver(
+        options=options,
+        service=Service(executable_path="/home/makariy/code/prog/chromedriver-linux64/chromedriver"),
+    )
+    return driver
 
 
