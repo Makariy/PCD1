@@ -30,7 +30,7 @@ def create_webdriver(
         options = create_webdriver_options()
     driver = Driver(
         options=options,
-        service=Service(executable_path="/home/makariy/code/prog/chromedriver-linux64/chromedriver"),
+        service=Service(executable_path="C:/Users/oliga/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"),
     )
     return driver
 

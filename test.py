@@ -9,18 +9,22 @@ def main():
     driver = create_webdriver(
         options=create_webdriver_options(is_headless=False)
     )
-    driver.get("https://pcpartpicker.com/products/video-card/")
 
-    time.sleep(2)
-    paginator = Paginator(driver)
-    time.sleep(3)
-    # paginator.accept_cookies()
-    for i in range(3):
-        print(f"{paginator.has_next_page()=}")
-        time.sleep(2)
-        # paginator.navigate_to_next_page()
+    # create Interactor
+    interactor = Interactor(driver, "https://pcpartpicker.com/products/cpu")
 
-    time.sleep(100)
+    # get into the URL
+    driver.get("https://pcpartpicker.com/products/cpu")
+    driver.maximize_window()
+    time.sleep(5)
+
+    # accept cookies
+    interactor.accept_cookies()
+    time.sleep(5)
+
+    # change to AMD cpu's
+    interactor.select_vendor("AMD")
+    time.sleep(5)
 
 
 if __name__ == "__main__":
