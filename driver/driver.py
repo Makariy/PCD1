@@ -3,8 +3,6 @@ from selenium.webdriver import Chrome, ChromeOptions
 # from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.chrome.service import Service
 
-from config import PROXY_URL
-
 Driver = Chrome
 Options = ChromeOptions
 
@@ -16,10 +14,10 @@ def create_webdriver_options(
     if is_headless:
         options.add_argument("--headless")
 
-    options.add_argument(f"--proxy-url={PROXY_URL}")
     options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--start-maximized')
     return options
 
 
@@ -30,7 +28,6 @@ def create_webdriver(
         options = create_webdriver_options()
     driver = Driver(
         options=options,
-        service=Service(executable_path="C:/Users/oliga/Downloads/chromedriver-win64/chromedriver-win64/chromedriver.exe"),
     )
     return driver
 

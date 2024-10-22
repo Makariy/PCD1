@@ -1,6 +1,6 @@
 
 
-PROXY_URL = "140.238.68.47:20170"
+DEFAULT_DRIVER_WAIT_TIMEOUT = 10
 
 HEADLESS = False
 GRAPHICS_URL = "https://pcpartpicker.com/products/video-card/"
