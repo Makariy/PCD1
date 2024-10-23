@@ -1,59 +1,55 @@
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.wait import WebDriverWait
+
+from config import DEFAULT_DRIVER_WAIT_TIMEOUT
 from driver import Driver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Paginator:
     def __init__(self, driver: Driver):
         self._driver = driver
 
-    def _get_page(self) -> int:
-        """
-        Devuelve la pagina actual sacandola del query de la URL
-        Si no hay page especificado en los parametros de la URL,
-        devuelve 1
-        """
-
+    def _get_current_page_element(self) -> WebElement | None:
         try:
-            current_page = self._driver.find_element(By.CSS_SELECTOR, ".pagination--current")
-            page_number = int(current_page.text)
-
+            return self._driver.find_element(By.CSS_SELECTOR, ".pagination--current")
         except NoSuchElementException:
-            return 1
+            return None
 
-        return page_number
+    def _get_current_page_index(self) -> int:
+        current_page_element = self._get_current_page_element()
+        current_page_index = 1
+        if current_page_element is not None:
+            current_page_index = int(current_page_element.get_attribute("innerText"))
+        return current_page_index
+
+    def _get_next_page_element(self) -> WebElement | None:
+        next_page_index = self._get_current_page_index() + 1
+        try:
+            return self._driver.find_element(By.CSS_SELECTOR, f'a[href="#page={next_page_index}"]')
+        except NoSuchElementException:
+            return None
+
+    def _get_pagination_element(self) -> WebElement:
+        return self._driver.find_element(
+            By.ID, "module-pagination"
+        )
+
+    def _await_pagination(self, pagination_element: WebElement):
+        WebDriverWait(
+            self._driver,
+            DEFAULT_DRIVER_WAIT_TIMEOUT
+        ).until(EC.staleness_of(pagination_element))
 
     def has_next_page(self) -> bool:
-        """
-        Busca las posibles paginas que se muestran en .pagination
-        y compara si hay page + 1 (sacando page de self._get_page)
-        """
-
-        next_possible_page = self._get_page() + 1
-        next_page_selector = f'a[href="#page={next_possible_page}"]'
-
-        try:
-            next_page = self._driver.find_element(By.CSS_SELECTOR, next_page_selector)
-            return True if next_page else False
-
-        except NoSuchElementException:
-            return False
+        return self._get_next_page_element() is not None
 
     def navigate_to_next_page(self) -> None:
-        """
-        Pone en url page + 1
-        """
+        next_page_element: WebElement = self._get_next_page_element()
 
-        if self.has_next_page():
+        pagination_element = self._get_pagination_element()
+        self._driver.execute_script("arguments[0].click()", next_page_element)
+        self._await_pagination(pagination_element)
 
-            next_possible_page = self._get_page() + 1
-
-            search_bar = self._driver.current_url
-
-            if self._get_page() == 1:
-                final_search_bar = search_bar + "#page=2"
-
-            else:
-                final_search_bar = search_bar[:-1] + f"{next_possible_page}"
-
-            self._driver.get(final_search_bar)

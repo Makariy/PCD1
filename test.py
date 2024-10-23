@@ -9,19 +9,23 @@ from driver import Driver
 
 def main():
     driver = create_webdriver(
-        options=create_webdriver_options(is_headless=True)
+        options=create_webdriver_options(is_headless=False)
     )
-
-    # create Interactor
-    interactor = Interactor(driver, "https://pcpartpicker.com/products/video-card/")
 
     # get into the URL
     driver.get("https://pcpartpicker.com/products/video-card/")
 
+    interactor = Interactor(driver, "https://pcpartpicker.com/products/video-card/")
+    paginator = Paginator(driver)
+    time.sleep(3)
     for vendor in BRANDS_TO_PARSE:
         interactor.select_vendor(vendor)
-        print(driver.current_url)
-        time.sleep(3)
+        while paginator.has_next_page():
+            paginator.navigate_to_next_page()
+
+    time.sleep(10)
+
+
 
 
 if __name__ == "__main__":
