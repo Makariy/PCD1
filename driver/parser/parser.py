@@ -24,5 +24,5 @@ class PageParser:
 
 
         tabla = self._driver.find_element(By.ID, "category_content")
-        rows = tabla.find_elements(By.XPATH, "./tr/td[@class='td__name']/a")
+        rows = tabla.find_elements(By.XPATH, "./tr")
         return [self._parse_raw_card(card)  for card in rows]
