@@ -21,9 +21,8 @@ class PageParser:
         Busca todas las filas con tarjetas graficas y las pasa a self._parse_raw_card
         """
 
-        # Algo tipo
-        # cards = []
-        # for raw_card in self._driver.find_elements(By.CLASS_NAME, "tr__product"):
-        #     card = self._parse_raw_card(raw_card)
-        #     cards.append(card)
-        # return cards
+
+
+        tabla = self._driver.find_element(By.ID, "category_content")
+        rows = tabla.find_elements(By.XPATH, "./tr/td[@class='td__name']/a")
+        return [self._parse_raw_card(card)  for card in rows]
