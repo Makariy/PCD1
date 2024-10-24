@@ -6,11 +6,11 @@ class GraphicsCard:
     name: str  # Ex. RTX 4060
     parent_brand: str  # Ex. NVIDIA, AMD, Intel
 
-    price: float  # In Euro
+    price: float | None  # In Euro
 
     memory: float  # In MB
 
-    core_clock: float  # In MHz
+    core_clock: float | None  # In MHz
     core_boost_clock: float | None  # In MHz
 
     length: int  # In mm
