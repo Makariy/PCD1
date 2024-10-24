@@ -1,6 +1,6 @@
 from config import (
     BRANDS_TO_PARSE,
-    PCCOMPONENTS_GRAPHICS_URL
+    GRAPHICS_URL
 )
 from crowler.crowler import Crowler
 from models.graphics import GraphicsCardsWithBrand
@@ -17,7 +17,7 @@ def serialize_graphics_cards_with_brands(
 
 
 def main():
-    crowler = Crowler(PCCOMPONENTS_GRAPHICS_URL)
+    crowler = Crowler(GRAPHICS_URL)
     graphics_cards_with_brands = crowler.parse_brands(BRANDS_TO_PARSE)
     serialize_graphics_cards_with_brands(graphics_cards_with_brands)
 
