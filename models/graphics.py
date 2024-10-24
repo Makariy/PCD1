@@ -11,7 +11,7 @@ class GraphicsCard:
     memory: float  # In MB
 
     core_clock: float  # In MHz
-    core_boost_clock: float  # In MHz
+    core_boost_clock: float | None  # In MHz
 
     length: int  # In mm
 
