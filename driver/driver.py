@@ -28,7 +28,6 @@ def create_webdriver(
         options = create_webdriver_options()
     driver = Driver(
         options=options,
+        service=Service("chromedriver/chromedriver")
     )
     return driver
-
-
