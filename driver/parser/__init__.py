@@ -1,1 +1,1 @@
-from .parser import PageParser
+from .page_parser import PageParser
