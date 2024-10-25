@@ -15,7 +15,7 @@ class GraphicsCard:
 
     length: int  # In mm
 
-    user_score: float  # From 0 to 5
+    user_score: int  # From 0 to 5
     user_ratings_count: int  # Ex. 241
 
     chipset: str  # Ex. Radeon RX7900 XTX
