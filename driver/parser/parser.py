@@ -34,7 +34,7 @@ class PageParser:
         count = 0
         for star in stars:
             # Check if the svg star is full
-            if star.find_element(By.TAG_NAME, "svg").get_attribute("class") == "shape-star-full":
+            if star.find_element(By.TAG_NAME, "svg").get_attribute("class") == "icon shape-star-full":
                 count += 1
 
         # Get the number of voters
