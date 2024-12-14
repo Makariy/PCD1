@@ -18,8 +18,8 @@ Los scripts `.py` que se usan para crear los graficos de la presentacion estan u
 de los cuales, se usan los siguientes:
 - `correlation_matrix.py`
 - `boxplot_core_clock_to_price.py`
-- `brands_cmparison_with_heuristic.py`
-- `brands_cmparison_with_user_score.py`
+- `brands_comparison_with_heuristic.py`
+- `brands_comparison_with_user_score.py`
 - `card_by_budget.py`
 
 
@@ -41,8 +41,8 @@ Crea la matriz de correlacion para las columnas `price, memory, core_clock, core
 - `boxplot_core_clock_to_price.py` 
 Crea el diagrama de caja construida a partir de la expresion `core_boost_clock/price` para las tarjetas graficas RTX 
 de la serie 40
-- `brands_cmparison_with_heuristic.py` Crea un diagrama de barras comparando por una heuristica las marcas 
-- `brands_cmparison_with_user_score.py` Crea un diagrama de barras comparando por `user_score` las marcas
+- `brands_comparison_with_heuristic.py` Crea un diagrama de barras comparando por una heuristica las marcas 
+- `brands_comparison_with_user_score.py` Crea un diagrama de barras comparando por `user_score` las marcas
 - `card_by_budget.py` Crea un diagrama de barras de las mejores tarjetas graficas en orden descendiente de la heuristica
 debajo del precio establecido
 
