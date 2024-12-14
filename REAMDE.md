@@ -32,3 +32,22 @@ cd plots
 python3 correlation_matrix.py 
 ```
 Y se mostrara el grafico correspondiente
+
+---
+## Explicacion de los archivos
+Los graficos usados en la presentacion se generan con los siguientes scripts:
+- `correlation_matrix.py`
+Crea la matriz de correlacion para las columnas `price, memory, core_clock, core_boost_clock`
+- `boxplot_core_clock_to_price.py` 
+Crea el diagrama de caja construida a partir de la expresion `core_boost_clock/price` para las tarjetas graficas RTX 
+de la serie 40
+- `brands_cmparison_with_heuristic.py` Crea un diagrama de barras comparando por una heuristica las marcas 
+- `brands_cmparison_with_user_score.py` Crea un diagrama de barras comparando por `user_score` las marcas
+- `card_by_budget.py` Crea un diagrama de barras de las mejores tarjetas graficas en orden descendiente de la heuristica
+debajo del precio establecido
+
+Ademas de los archivos que crean los graficos, tambien se han usado unos archivos de utilidad:
+- `dataframe.py` Crea la variable `df` de tipo `pandas.DataFrame` que une todos los datos recolectados a partir 
+de Web Scrapping y ademas define la variable `columns` que contiene todas las columnas de `df`
+- `utils.py` Define las funciones de utilidad que se han usado en la generacion de las graficas como la heuristica
+
