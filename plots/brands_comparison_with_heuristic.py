@@ -1,49 +1,37 @@
-import pandas as pd
 import plotly.express as px
 
-
-dfs = []
-for brand in ["Asus", "Gigabyte", "MSI", "XFX", "Zotac"]:
-    df = pd.read_csv(f"../data/{brand}.csv")
-    df["brand"] = brand
-    dfs.append(df)
+from utils import apply_chipset_punct, chipset_punct
+from dataframe import df
 
 
-df = pd.concat(dfs, ignore_index=True)
+chipset = "GeForce RTX 4070 SUPER"
+
+# Get the best graphics card name for each brand for the given chipset
+df_filtered = df[df["chipset"] == chipset]
+
+max_per_brand = df_filtered.groupby("brand") \
+    .apply(apply_chipset_punct, include_groups=False) \
+    .groupby("brand")["punct"] \
+    .idxmax()
 
 
-chipset_filtered = df[df["chipset"] == "GeForce RTX 4070"]
-
-# Calculate the heuristic for each GPU
-chipset_filtered["performance_heuristic"] = (
-        (chipset_filtered["core_boost_clock"] + chipset_filtered["core_clock"] + chipset_filtered["memory"])
-        / chipset_filtered["price"]
-)
-
-# Group by brand to calculate the average heuristic
-brand_performance = chipset_filtered.groupby("brand").agg(
-    avg_heuristic=("performance_heuristic", "mean"),
-    count=("name", "size")
-).reset_index()
-
+max_per_brand = df_filtered.loc[max_per_brand.apply(lambda brand: brand[1])].copy()
+max_per_brand.loc[:, "punct"] = chipset_punct(max_per_brand)
+max_per_brand = max_per_brand.sort_values("punct", ascending=False)
 
 fig = px.bar(
-    brand_performance.sort_values("avg_heuristic", ascending=False),
-    x="avg_heuristic",
-    y="brand",
-    text="avg_heuristic",
-    orientation="h",
-    title="Performance-to-Price Heuristic by Brand (RTX 4070)",
-    labels={"avg_heuristic": "Performance-to-Price Heuristic", "brand": "Brand"},
-    hover_data=["count"],
-)
-
-# Update layout for better readability
-fig.update_layout(
-    xaxis_title="Performance-to-Price Heuristic",
-    yaxis_title="Brand",
-    uniformtext_minsize=8,
-    uniformtext_mode="hide",
+    max_per_brand,
+    x="name",
+    y="punct",
+    title=f"Mejor tarjeta gráfica para el chipset {chipset} de cada vendedor",
+    labels={
+        "punct": "Puntuación",
+        "name": "Tarjeta Gráfica",
+    },
+    hover_data=["name", "price", "core_clock", "core_boost_clock", "memory"],
+    color="brand",
+    width=800,
+    height=600,
 )
 
 fig.show()

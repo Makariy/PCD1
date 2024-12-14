@@ -1,21 +1,19 @@
-import pandas as pd
 import plotly.express as px
 
+from dataframe import df, columns
 
-df = pd.read_csv('../data/Asus.csv')
 
-df_filtered = df[df["chipset"].str.contains("RTX 40", case=False, na=False)]
-
-columns = ["price", "memory", "core_clock", "core_boost_clock", "length", "user_score", "user_ratings_count"]
-matrix = df_filtered[columns].corr()
+columns_cor = columns[0:4]
+df_filtered = df[df["chipset"].str.contains("RTX 40", case=False, na=False)].copy()
+matrix = df_filtered[columns_cor].corr()
 
 fig = px.imshow(
     matrix,
     text_auto=True,
-    title="Correlation Heatmap of GPU Attributes",
+    title="Mapa de correlaciones entre las variables",
     labels={"color": "Correlation"},
-    x=columns,
-    y=columns,
+    x=columns_cor,
+    y=columns_cor,
     color_continuous_scale="Viridis",
 )
 
